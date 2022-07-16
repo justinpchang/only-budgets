@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-import styles from "../styles/Home.module.css";
 import { useAuth } from "../components/Auth/auth";
 import { setErrorMessage } from "../components/Auth/setErrorMessage";
 
@@ -44,18 +43,15 @@ const Login = () => {
   // if there is no signed in user
   if (!auth.user) {
     return (
-      <div className={styles.container}>
+      <div>
         <Head>
-          <title>NextJS Firebase Auth Starter Kit</title>
-          <meta
-            name="description"
-            content="A starter kit created by @official-carledwardfp"
-          />
+          <title>OnlyBudgets</title>
+          <meta name="description" content="Budgets made simple" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <main className={styles.main}>
-          <h1 className={styles.title}>Signup</h1>
+        <main>
+          <h1>Signup</h1>
           <br />
           <form onSubmit={(event) => signUp(event, email, password)}>
             <label htmlFor="email">Email Address</label>

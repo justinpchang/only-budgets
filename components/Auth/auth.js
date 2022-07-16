@@ -1,7 +1,5 @@
 import { useState, useEffect, useContext, createContext } from "react";
-import { initializeApp, getApps } from "firebase/app";
 import {
-  getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -9,20 +7,12 @@ import {
   sendPasswordResetEmail as fSendPasswordResetEmail,
   confirmPasswordReset as fConfirmPasswordReset,
 } from "firebase/auth";
-import { getFirestore, setDoc, doc, Timestamp } from "firebase/firestore";
-import { config } from "./config";
+import { setDoc, doc, Timestamp } from "firebase/firestore";
+import { auth, db } from "../../utils/firebase";
 
 const AuthContext = createContext();
 
 const useAuthProvider = () => {
-  let firebaseApp;
-  if (!getApps().length) {
-    firebaseApp = initializeApp(config);
-  }
-  const auth = getAuth(firebaseApp);
-
-  const db = getFirestore(firebaseApp);
-
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -38,7 +28,7 @@ const useAuthProvider = () => {
     });
 
     return () => unsubscribe();
-  }, [auth, user]);
+  }, [user]);
 
   const signIn = async (email, password) => {
     await signInWithEmailAndPassword(auth, email, password);
